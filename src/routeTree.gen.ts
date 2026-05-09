@@ -19,13 +19,19 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedPropostasIndexRouteImport } from './routes/_authenticated/propostas.index'
 import { Route as AuthenticatedClientesIndexRouteImport } from './routes/_authenticated/clientes.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedPropostasNovaRouteImport } from './routes/_authenticated/propostas.nova'
 import { Route as AuthenticatedPropostasIdRouteImport } from './routes/_authenticated/propostas.$id'
 import { Route as AuthenticatedConfiguracoesEmpresaRouteImport } from './routes/_authenticated/configuracoes.empresa'
 import { Route as AuthenticatedClientesNovoRouteImport } from './routes/_authenticated/clientes.novo'
 import { Route as AuthenticatedClientesIdRouteImport } from './routes/_authenticated/clientes.$id'
+import { Route as AuthenticatedAdminMetricasRouteImport } from './routes/_authenticated/admin.metricas'
+import { Route as AuthenticatedAdminClausulasRouteImport } from './routes/_authenticated/admin.clausulas'
+import { Route as AuthenticatedAdminCatalogoRouteImport } from './routes/_authenticated/admin.catalogo'
+import { Route as AuthenticatedAdminUsuariosIndexRouteImport } from './routes/_authenticated/admin.usuarios.index'
 import { Route as AuthenticatedPropostasIdEditarRouteImport } from './routes/_authenticated/propostas.$id.editar'
 import { Route as AuthenticatedClientesIdEditarRouteImport } from './routes/_authenticated/clientes.$id.editar'
+import { Route as AuthenticatedAdminUsuariosIdRouteImport } from './routes/_authenticated/admin.usuarios.$id'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -78,6 +84,11 @@ const AuthenticatedClientesIndexRoute =
     path: '/clientes/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedPropostasNovaRoute =
   AuthenticatedPropostasNovaRouteImport.update({
     id: '/propostas/nova',
@@ -107,6 +118,30 @@ const AuthenticatedClientesIdRoute = AuthenticatedClientesIdRouteImport.update({
   path: '/clientes/$id',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedAdminMetricasRoute =
+  AuthenticatedAdminMetricasRouteImport.update({
+    id: '/admin/metricas',
+    path: '/admin/metricas',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminClausulasRoute =
+  AuthenticatedAdminClausulasRouteImport.update({
+    id: '/admin/clausulas',
+    path: '/admin/clausulas',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminCatalogoRoute =
+  AuthenticatedAdminCatalogoRouteImport.update({
+    id: '/admin/catalogo',
+    path: '/admin/catalogo',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminUsuariosIndexRoute =
+  AuthenticatedAdminUsuariosIndexRouteImport.update({
+    id: '/admin/usuarios/',
+    path: '/admin/usuarios/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedPropostasIdEditarRoute =
   AuthenticatedPropostasIdEditarRouteImport.update({
     id: '/editar',
@@ -119,6 +154,12 @@ const AuthenticatedClientesIdEditarRoute =
     path: '/editar',
     getParentRoute: () => AuthenticatedClientesIdRoute,
   } as any)
+const AuthenticatedAdminUsuariosIdRoute =
+  AuthenticatedAdminUsuariosIdRouteImport.update({
+    id: '/admin/usuarios/$id',
+    path: '/admin/usuarios/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -128,15 +169,21 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/p/$token': typeof PTokenRoute
+  '/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
+  '/admin/clausulas': typeof AuthenticatedAdminClausulasRoute
+  '/admin/metricas': typeof AuthenticatedAdminMetricasRoute
   '/clientes/$id': typeof AuthenticatedClientesIdRouteWithChildren
   '/clientes/novo': typeof AuthenticatedClientesNovoRoute
   '/configuracoes/empresa': typeof AuthenticatedConfiguracoesEmpresaRoute
   '/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
   '/propostas/nova': typeof AuthenticatedPropostasNovaRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/clientes/': typeof AuthenticatedClientesIndexRoute
   '/propostas/': typeof AuthenticatedPropostasIndexRoute
+  '/admin/usuarios/$id': typeof AuthenticatedAdminUsuariosIdRoute
   '/clientes/$id/editar': typeof AuthenticatedClientesIdEditarRoute
   '/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
+  '/admin/usuarios/': typeof AuthenticatedAdminUsuariosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -146,15 +193,21 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/p/$token': typeof PTokenRoute
+  '/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
+  '/admin/clausulas': typeof AuthenticatedAdminClausulasRoute
+  '/admin/metricas': typeof AuthenticatedAdminMetricasRoute
   '/clientes/$id': typeof AuthenticatedClientesIdRouteWithChildren
   '/clientes/novo': typeof AuthenticatedClientesNovoRoute
   '/configuracoes/empresa': typeof AuthenticatedConfiguracoesEmpresaRoute
   '/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
   '/propostas/nova': typeof AuthenticatedPropostasNovaRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/clientes': typeof AuthenticatedClientesIndexRoute
   '/propostas': typeof AuthenticatedPropostasIndexRoute
+  '/admin/usuarios/$id': typeof AuthenticatedAdminUsuariosIdRoute
   '/clientes/$id/editar': typeof AuthenticatedClientesIdEditarRoute
   '/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -166,15 +219,21 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
   '/p/$token': typeof PTokenRoute
+  '/_authenticated/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
+  '/_authenticated/admin/clausulas': typeof AuthenticatedAdminClausulasRoute
+  '/_authenticated/admin/metricas': typeof AuthenticatedAdminMetricasRoute
   '/_authenticated/clientes/$id': typeof AuthenticatedClientesIdRouteWithChildren
   '/_authenticated/clientes/novo': typeof AuthenticatedClientesNovoRoute
   '/_authenticated/configuracoes/empresa': typeof AuthenticatedConfiguracoesEmpresaRoute
   '/_authenticated/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
   '/_authenticated/propostas/nova': typeof AuthenticatedPropostasNovaRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/clientes/': typeof AuthenticatedClientesIndexRoute
   '/_authenticated/propostas/': typeof AuthenticatedPropostasIndexRoute
+  '/_authenticated/admin/usuarios/$id': typeof AuthenticatedAdminUsuariosIdRoute
   '/_authenticated/clientes/$id/editar': typeof AuthenticatedClientesIdEditarRoute
   '/_authenticated/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
+  '/_authenticated/admin/usuarios/': typeof AuthenticatedAdminUsuariosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -186,15 +245,21 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/perfil'
     | '/p/$token'
+    | '/admin/catalogo'
+    | '/admin/clausulas'
+    | '/admin/metricas'
     | '/clientes/$id'
     | '/clientes/novo'
     | '/configuracoes/empresa'
     | '/propostas/$id'
     | '/propostas/nova'
+    | '/admin/'
     | '/clientes/'
     | '/propostas/'
+    | '/admin/usuarios/$id'
     | '/clientes/$id/editar'
     | '/propostas/$id/editar'
+    | '/admin/usuarios/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -204,15 +269,21 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/perfil'
     | '/p/$token'
+    | '/admin/catalogo'
+    | '/admin/clausulas'
+    | '/admin/metricas'
     | '/clientes/$id'
     | '/clientes/novo'
     | '/configuracoes/empresa'
     | '/propostas/$id'
     | '/propostas/nova'
+    | '/admin'
     | '/clientes'
     | '/propostas'
+    | '/admin/usuarios/$id'
     | '/clientes/$id/editar'
     | '/propostas/$id/editar'
+    | '/admin/usuarios'
   id:
     | '__root__'
     | '/'
@@ -223,15 +294,21 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/_authenticated/perfil'
     | '/p/$token'
+    | '/_authenticated/admin/catalogo'
+    | '/_authenticated/admin/clausulas'
+    | '/_authenticated/admin/metricas'
     | '/_authenticated/clientes/$id'
     | '/_authenticated/clientes/novo'
     | '/_authenticated/configuracoes/empresa'
     | '/_authenticated/propostas/$id'
     | '/_authenticated/propostas/nova'
+    | '/_authenticated/admin/'
     | '/_authenticated/clientes/'
     | '/_authenticated/propostas/'
+    | '/_authenticated/admin/usuarios/$id'
     | '/_authenticated/clientes/$id/editar'
     | '/_authenticated/propostas/$id/editar'
+    | '/_authenticated/admin/usuarios/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -314,6 +391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedClientesIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/propostas/nova': {
       id: '/_authenticated/propostas/nova'
       path: '/propostas/nova'
@@ -349,6 +433,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedClientesIdRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/admin/metricas': {
+      id: '/_authenticated/admin/metricas'
+      path: '/admin/metricas'
+      fullPath: '/admin/metricas'
+      preLoaderRoute: typeof AuthenticatedAdminMetricasRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/clausulas': {
+      id: '/_authenticated/admin/clausulas'
+      path: '/admin/clausulas'
+      fullPath: '/admin/clausulas'
+      preLoaderRoute: typeof AuthenticatedAdminClausulasRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/catalogo': {
+      id: '/_authenticated/admin/catalogo'
+      path: '/admin/catalogo'
+      fullPath: '/admin/catalogo'
+      preLoaderRoute: typeof AuthenticatedAdminCatalogoRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/usuarios/': {
+      id: '/_authenticated/admin/usuarios/'
+      path: '/admin/usuarios'
+      fullPath: '/admin/usuarios/'
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/propostas/$id/editar': {
       id: '/_authenticated/propostas/$id/editar'
       path: '/editar'
@@ -362,6 +474,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/clientes/$id/editar'
       preLoaderRoute: typeof AuthenticatedClientesIdEditarRouteImport
       parentRoute: typeof AuthenticatedClientesIdRoute
+    }
+    '/_authenticated/admin/usuarios/$id': {
+      id: '/_authenticated/admin/usuarios/$id'
+      path: '/admin/usuarios/$id'
+      fullPath: '/admin/usuarios/$id'
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
   }
 }
@@ -398,27 +517,39 @@ interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
+  AuthenticatedAdminCatalogoRoute: typeof AuthenticatedAdminCatalogoRoute
+  AuthenticatedAdminClausulasRoute: typeof AuthenticatedAdminClausulasRoute
+  AuthenticatedAdminMetricasRoute: typeof AuthenticatedAdminMetricasRoute
   AuthenticatedClientesIdRoute: typeof AuthenticatedClientesIdRouteWithChildren
   AuthenticatedClientesNovoRoute: typeof AuthenticatedClientesNovoRoute
   AuthenticatedConfiguracoesEmpresaRoute: typeof AuthenticatedConfiguracoesEmpresaRoute
   AuthenticatedPropostasIdRoute: typeof AuthenticatedPropostasIdRouteWithChildren
   AuthenticatedPropostasNovaRoute: typeof AuthenticatedPropostasNovaRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedClientesIndexRoute: typeof AuthenticatedClientesIndexRoute
   AuthenticatedPropostasIndexRoute: typeof AuthenticatedPropostasIndexRoute
+  AuthenticatedAdminUsuariosIdRoute: typeof AuthenticatedAdminUsuariosIdRoute
+  AuthenticatedAdminUsuariosIndexRoute: typeof AuthenticatedAdminUsuariosIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
+  AuthenticatedAdminCatalogoRoute: AuthenticatedAdminCatalogoRoute,
+  AuthenticatedAdminClausulasRoute: AuthenticatedAdminClausulasRoute,
+  AuthenticatedAdminMetricasRoute: AuthenticatedAdminMetricasRoute,
   AuthenticatedClientesIdRoute: AuthenticatedClientesIdRouteWithChildren,
   AuthenticatedClientesNovoRoute: AuthenticatedClientesNovoRoute,
   AuthenticatedConfiguracoesEmpresaRoute:
     AuthenticatedConfiguracoesEmpresaRoute,
   AuthenticatedPropostasIdRoute: AuthenticatedPropostasIdRouteWithChildren,
   AuthenticatedPropostasNovaRoute: AuthenticatedPropostasNovaRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedClientesIndexRoute: AuthenticatedClientesIndexRoute,
   AuthenticatedPropostasIndexRoute: AuthenticatedPropostasIndexRoute,
+  AuthenticatedAdminUsuariosIdRoute: AuthenticatedAdminUsuariosIdRoute,
+  AuthenticatedAdminUsuariosIndexRoute: AuthenticatedAdminUsuariosIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

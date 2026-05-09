@@ -75,13 +75,11 @@
 }
 
 @layer components {
-  .badge-status {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium;
-  }
-  .badge-rascunho { @apply badge-status bg-slate-100 text-slate-700; }
-  .badge-enviada { @apply badge-status bg-blue-50 text-blue-700; }
-  .badge-visualizada { @apply badge-status bg-amber-50 text-amber-700; }
-  .badge-aceita { @apply badge-status bg-emerald-50 text-emerald-700; }
-  .badge-recusada { @apply badge-status bg-red-50 text-red-700; }
-  .badge-expirada { @apply badge-status bg-slate-100 text-red-600; }
+  .badge-status { @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium; }
+  .badge-rascunho { @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-700; }
+  .badge-enviada { @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-blue-50 text-blue-700; }
+  .badge-visualizada { @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-amber-50 text-amber-700; }
+  .badge-aceita { @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700; }
+  .badge-recusada { @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-red-50 text-red-700; }
+  .badge-expirada { @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-red-600; }
 }

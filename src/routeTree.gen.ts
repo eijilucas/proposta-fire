@@ -9,38 +9,339 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as CadastroRouteImport } from './routes/cadastro'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PTokenRouteImport } from './routes/p.$token'
+import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedPropostasIndexRouteImport } from './routes/_authenticated/propostas.index'
+import { Route as AuthenticatedClientesIndexRouteImport } from './routes/_authenticated/clientes.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedPropostasNovaRouteImport } from './routes/_authenticated/propostas.nova'
+import { Route as AuthenticatedPropostasIdRouteImport } from './routes/_authenticated/propostas.$id'
+import { Route as AuthenticatedConfiguracoesEmpresaRouteImport } from './routes/_authenticated/configuracoes.empresa'
+import { Route as AuthenticatedClientesNovoRouteImport } from './routes/_authenticated/clientes.novo'
+import { Route as AuthenticatedClientesIdRouteImport } from './routes/_authenticated/clientes.$id'
+import { Route as AuthenticatedAdminMetricasRouteImport } from './routes/_authenticated/admin.metricas'
+import { Route as AuthenticatedAdminClausulasRouteImport } from './routes/_authenticated/admin.clausulas'
+import { Route as AuthenticatedAdminCatalogoRouteImport } from './routes/_authenticated/admin.catalogo'
+import { Route as AuthenticatedAdminUsuariosIndexRouteImport } from './routes/_authenticated/admin.usuarios.index'
+import { Route as AuthenticatedPropostasIdEditarRouteImport } from './routes/_authenticated/propostas.$id.editar'
+import { Route as AuthenticatedClientesIdEditarRouteImport } from './routes/_authenticated/clientes.$id.editar'
+import { Route as AuthenticatedAdminUsuariosIdRouteImport } from './routes/_authenticated/admin.usuarios.$id'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadastroRoute = CadastroRouteImport.update({
+  id: '/cadastro',
+  path: '/cadastro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PTokenRoute = PTokenRouteImport.update({
+  id: '/p/$token',
+  path: '/p/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedPropostasIndexRoute =
+  AuthenticatedPropostasIndexRouteImport.update({
+    id: '/propostas/',
+    path: '/propostas/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedClientesIndexRoute =
+  AuthenticatedClientesIndexRouteImport.update({
+    id: '/clientes/',
+    path: '/clientes/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedPropostasNovaRoute =
+  AuthenticatedPropostasNovaRouteImport.update({
+    id: '/propostas/nova',
+    path: '/propostas/nova',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPropostasIdRoute =
+  AuthenticatedPropostasIdRouteImport.update({
+    id: '/propostas/$id',
+    path: '/propostas/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedConfiguracoesEmpresaRoute =
+  AuthenticatedConfiguracoesEmpresaRouteImport.update({
+    id: '/configuracoes/empresa',
+    path: '/configuracoes/empresa',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedClientesNovoRoute =
+  AuthenticatedClientesNovoRouteImport.update({
+    id: '/clientes/novo',
+    path: '/clientes/novo',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedClientesIdRoute = AuthenticatedClientesIdRouteImport.update({
+  id: '/clientes/$id',
+  path: '/clientes/$id',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAdminMetricasRoute =
+  AuthenticatedAdminMetricasRouteImport.update({
+    id: '/admin/metricas',
+    path: '/admin/metricas',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminClausulasRoute =
+  AuthenticatedAdminClausulasRouteImport.update({
+    id: '/admin/clausulas',
+    path: '/admin/clausulas',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminCatalogoRoute =
+  AuthenticatedAdminCatalogoRouteImport.update({
+    id: '/admin/catalogo',
+    path: '/admin/catalogo',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminUsuariosIndexRoute =
+  AuthenticatedAdminUsuariosIndexRouteImport.update({
+    id: '/admin/usuarios/',
+    path: '/admin/usuarios/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPropostasIdEditarRoute =
+  AuthenticatedPropostasIdEditarRouteImport.update({
+    id: '/editar',
+    path: '/editar',
+    getParentRoute: () => AuthenticatedPropostasIdRoute,
+  } as any)
+const AuthenticatedClientesIdEditarRoute =
+  AuthenticatedClientesIdEditarRouteImport.update({
+    id: '/editar',
+    path: '/editar',
+    getParentRoute: () => AuthenticatedClientesIdRoute,
+  } as any)
+const AuthenticatedAdminUsuariosIdRoute =
+  AuthenticatedAdminUsuariosIdRouteImport.update({
+    id: '/admin/usuarios/$id',
+    path: '/admin/usuarios/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
+  '/login': typeof LoginRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
+  '/p/$token': typeof PTokenRoute
+  '/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
+  '/admin/clausulas': typeof AuthenticatedAdminClausulasRoute
+  '/admin/metricas': typeof AuthenticatedAdminMetricasRoute
+  '/clientes/$id': typeof AuthenticatedClientesIdRouteWithChildren
+  '/clientes/novo': typeof AuthenticatedClientesNovoRoute
+  '/configuracoes/empresa': typeof AuthenticatedConfiguracoesEmpresaRoute
+  '/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
+  '/propostas/nova': typeof AuthenticatedPropostasNovaRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/clientes/': typeof AuthenticatedClientesIndexRoute
+  '/propostas/': typeof AuthenticatedPropostasIndexRoute
+  '/admin/usuarios/$id': typeof AuthenticatedAdminUsuariosIdRoute
+  '/clientes/$id/editar': typeof AuthenticatedClientesIdEditarRoute
+  '/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
+  '/admin/usuarios/': typeof AuthenticatedAdminUsuariosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
+  '/login': typeof LoginRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
+  '/p/$token': typeof PTokenRoute
+  '/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
+  '/admin/clausulas': typeof AuthenticatedAdminClausulasRoute
+  '/admin/metricas': typeof AuthenticatedAdminMetricasRoute
+  '/clientes/$id': typeof AuthenticatedClientesIdRouteWithChildren
+  '/clientes/novo': typeof AuthenticatedClientesNovoRoute
+  '/configuracoes/empresa': typeof AuthenticatedConfiguracoesEmpresaRoute
+  '/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
+  '/propostas/nova': typeof AuthenticatedPropostasNovaRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/clientes': typeof AuthenticatedClientesIndexRoute
+  '/propostas': typeof AuthenticatedPropostasIndexRoute
+  '/admin/usuarios/$id': typeof AuthenticatedAdminUsuariosIdRoute
+  '/clientes/$id/editar': typeof AuthenticatedClientesIdEditarRoute
+  '/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/cadastro': typeof CadastroRoute
+  '/login': typeof LoginRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
+  '/p/$token': typeof PTokenRoute
+  '/_authenticated/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
+  '/_authenticated/admin/clausulas': typeof AuthenticatedAdminClausulasRoute
+  '/_authenticated/admin/metricas': typeof AuthenticatedAdminMetricasRoute
+  '/_authenticated/clientes/$id': typeof AuthenticatedClientesIdRouteWithChildren
+  '/_authenticated/clientes/novo': typeof AuthenticatedClientesNovoRoute
+  '/_authenticated/configuracoes/empresa': typeof AuthenticatedConfiguracoesEmpresaRoute
+  '/_authenticated/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
+  '/_authenticated/propostas/nova': typeof AuthenticatedPropostasNovaRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/clientes/': typeof AuthenticatedClientesIndexRoute
+  '/_authenticated/propostas/': typeof AuthenticatedPropostasIndexRoute
+  '/_authenticated/admin/usuarios/$id': typeof AuthenticatedAdminUsuariosIdRoute
+  '/_authenticated/clientes/$id/editar': typeof AuthenticatedClientesIdEditarRoute
+  '/_authenticated/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
+  '/_authenticated/admin/usuarios/': typeof AuthenticatedAdminUsuariosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cadastro'
+    | '/login'
+    | '/dashboard'
+    | '/onboarding'
+    | '/perfil'
+    | '/p/$token'
+    | '/admin/catalogo'
+    | '/admin/clausulas'
+    | '/admin/metricas'
+    | '/clientes/$id'
+    | '/clientes/novo'
+    | '/configuracoes/empresa'
+    | '/propostas/$id'
+    | '/propostas/nova'
+    | '/admin/'
+    | '/clientes/'
+    | '/propostas/'
+    | '/admin/usuarios/$id'
+    | '/clientes/$id/editar'
+    | '/propostas/$id/editar'
+    | '/admin/usuarios/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cadastro'
+    | '/login'
+    | '/dashboard'
+    | '/onboarding'
+    | '/perfil'
+    | '/p/$token'
+    | '/admin/catalogo'
+    | '/admin/clausulas'
+    | '/admin/metricas'
+    | '/clientes/$id'
+    | '/clientes/novo'
+    | '/configuracoes/empresa'
+    | '/propostas/$id'
+    | '/propostas/nova'
+    | '/admin'
+    | '/clientes'
+    | '/propostas'
+    | '/admin/usuarios/$id'
+    | '/clientes/$id/editar'
+    | '/propostas/$id/editar'
+    | '/admin/usuarios'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/cadastro'
+    | '/login'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/onboarding'
+    | '/_authenticated/perfil'
+    | '/p/$token'
+    | '/_authenticated/admin/catalogo'
+    | '/_authenticated/admin/clausulas'
+    | '/_authenticated/admin/metricas'
+    | '/_authenticated/clientes/$id'
+    | '/_authenticated/clientes/novo'
+    | '/_authenticated/configuracoes/empresa'
+    | '/_authenticated/propostas/$id'
+    | '/_authenticated/propostas/nova'
+    | '/_authenticated/admin/'
+    | '/_authenticated/clientes/'
+    | '/_authenticated/propostas/'
+    | '/_authenticated/admin/usuarios/$id'
+    | '/_authenticated/clientes/$id/editar'
+    | '/_authenticated/propostas/$id/editar'
+    | '/_authenticated/admin/usuarios/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  CadastroRoute: typeof CadastroRoute
+  LoginRoute: typeof LoginRoute
+  PTokenRoute: typeof PTokenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadastro': {
+      id: '/cadastro'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +349,220 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/p/$token': {
+      id: '/p/$token'
+      path: '/p/$token'
+      fullPath: '/p/$token'
+      preLoaderRoute: typeof PTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/perfil': {
+      id: '/_authenticated/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof AuthenticatedPerfilRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/propostas/': {
+      id: '/_authenticated/propostas/'
+      path: '/propostas'
+      fullPath: '/propostas/'
+      preLoaderRoute: typeof AuthenticatedPropostasIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/clientes/': {
+      id: '/_authenticated/clientes/'
+      path: '/clientes'
+      fullPath: '/clientes/'
+      preLoaderRoute: typeof AuthenticatedClientesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/propostas/nova': {
+      id: '/_authenticated/propostas/nova'
+      path: '/propostas/nova'
+      fullPath: '/propostas/nova'
+      preLoaderRoute: typeof AuthenticatedPropostasNovaRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/propostas/$id': {
+      id: '/_authenticated/propostas/$id'
+      path: '/propostas/$id'
+      fullPath: '/propostas/$id'
+      preLoaderRoute: typeof AuthenticatedPropostasIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/configuracoes/empresa': {
+      id: '/_authenticated/configuracoes/empresa'
+      path: '/configuracoes/empresa'
+      fullPath: '/configuracoes/empresa'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesEmpresaRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/clientes/novo': {
+      id: '/_authenticated/clientes/novo'
+      path: '/clientes/novo'
+      fullPath: '/clientes/novo'
+      preLoaderRoute: typeof AuthenticatedClientesNovoRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/clientes/$id': {
+      id: '/_authenticated/clientes/$id'
+      path: '/clientes/$id'
+      fullPath: '/clientes/$id'
+      preLoaderRoute: typeof AuthenticatedClientesIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/metricas': {
+      id: '/_authenticated/admin/metricas'
+      path: '/admin/metricas'
+      fullPath: '/admin/metricas'
+      preLoaderRoute: typeof AuthenticatedAdminMetricasRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/clausulas': {
+      id: '/_authenticated/admin/clausulas'
+      path: '/admin/clausulas'
+      fullPath: '/admin/clausulas'
+      preLoaderRoute: typeof AuthenticatedAdminClausulasRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/catalogo': {
+      id: '/_authenticated/admin/catalogo'
+      path: '/admin/catalogo'
+      fullPath: '/admin/catalogo'
+      preLoaderRoute: typeof AuthenticatedAdminCatalogoRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/usuarios/': {
+      id: '/_authenticated/admin/usuarios/'
+      path: '/admin/usuarios'
+      fullPath: '/admin/usuarios/'
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/propostas/$id/editar': {
+      id: '/_authenticated/propostas/$id/editar'
+      path: '/editar'
+      fullPath: '/propostas/$id/editar'
+      preLoaderRoute: typeof AuthenticatedPropostasIdEditarRouteImport
+      parentRoute: typeof AuthenticatedPropostasIdRoute
+    }
+    '/_authenticated/clientes/$id/editar': {
+      id: '/_authenticated/clientes/$id/editar'
+      path: '/editar'
+      fullPath: '/clientes/$id/editar'
+      preLoaderRoute: typeof AuthenticatedClientesIdEditarRouteImport
+      parentRoute: typeof AuthenticatedClientesIdRoute
+    }
+    '/_authenticated/admin/usuarios/$id': {
+      id: '/_authenticated/admin/usuarios/$id'
+      path: '/admin/usuarios/$id'
+      fullPath: '/admin/usuarios/$id'
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
+interface AuthenticatedClientesIdRouteChildren {
+  AuthenticatedClientesIdEditarRoute: typeof AuthenticatedClientesIdEditarRoute
+}
+
+const AuthenticatedClientesIdRouteChildren: AuthenticatedClientesIdRouteChildren =
+  {
+    AuthenticatedClientesIdEditarRoute: AuthenticatedClientesIdEditarRoute,
+  }
+
+const AuthenticatedClientesIdRouteWithChildren =
+  AuthenticatedClientesIdRoute._addFileChildren(
+    AuthenticatedClientesIdRouteChildren,
+  )
+
+interface AuthenticatedPropostasIdRouteChildren {
+  AuthenticatedPropostasIdEditarRoute: typeof AuthenticatedPropostasIdEditarRoute
+}
+
+const AuthenticatedPropostasIdRouteChildren: AuthenticatedPropostasIdRouteChildren =
+  {
+    AuthenticatedPropostasIdEditarRoute: AuthenticatedPropostasIdEditarRoute,
+  }
+
+const AuthenticatedPropostasIdRouteWithChildren =
+  AuthenticatedPropostasIdRoute._addFileChildren(
+    AuthenticatedPropostasIdRouteChildren,
+  )
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
+  AuthenticatedAdminCatalogoRoute: typeof AuthenticatedAdminCatalogoRoute
+  AuthenticatedAdminClausulasRoute: typeof AuthenticatedAdminClausulasRoute
+  AuthenticatedAdminMetricasRoute: typeof AuthenticatedAdminMetricasRoute
+  AuthenticatedClientesIdRoute: typeof AuthenticatedClientesIdRouteWithChildren
+  AuthenticatedClientesNovoRoute: typeof AuthenticatedClientesNovoRoute
+  AuthenticatedConfiguracoesEmpresaRoute: typeof AuthenticatedConfiguracoesEmpresaRoute
+  AuthenticatedPropostasIdRoute: typeof AuthenticatedPropostasIdRouteWithChildren
+  AuthenticatedPropostasNovaRoute: typeof AuthenticatedPropostasNovaRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedClientesIndexRoute: typeof AuthenticatedClientesIndexRoute
+  AuthenticatedPropostasIndexRoute: typeof AuthenticatedPropostasIndexRoute
+  AuthenticatedAdminUsuariosIdRoute: typeof AuthenticatedAdminUsuariosIdRoute
+  AuthenticatedAdminUsuariosIndexRoute: typeof AuthenticatedAdminUsuariosIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
+  AuthenticatedAdminCatalogoRoute: AuthenticatedAdminCatalogoRoute,
+  AuthenticatedAdminClausulasRoute: AuthenticatedAdminClausulasRoute,
+  AuthenticatedAdminMetricasRoute: AuthenticatedAdminMetricasRoute,
+  AuthenticatedClientesIdRoute: AuthenticatedClientesIdRouteWithChildren,
+  AuthenticatedClientesNovoRoute: AuthenticatedClientesNovoRoute,
+  AuthenticatedConfiguracoesEmpresaRoute:
+    AuthenticatedConfiguracoesEmpresaRoute,
+  AuthenticatedPropostasIdRoute: AuthenticatedPropostasIdRouteWithChildren,
+  AuthenticatedPropostasNovaRoute: AuthenticatedPropostasNovaRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedClientesIndexRoute: AuthenticatedClientesIndexRoute,
+  AuthenticatedPropostasIndexRoute: AuthenticatedPropostasIndexRoute,
+  AuthenticatedAdminUsuariosIdRoute: AuthenticatedAdminUsuariosIdRoute,
+  AuthenticatedAdminUsuariosIndexRoute: AuthenticatedAdminUsuariosIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  CadastroRoute: CadastroRoute,
+  LoginRoute: LoginRoute,
+  PTokenRoute: PTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

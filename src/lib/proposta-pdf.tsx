@@ -1,3 +1,8 @@
+import { Buffer } from "buffer";
+if (typeof globalThis !== "undefined" && !(globalThis as any).Buffer) {
+  (globalThis as any).Buffer = Buffer;
+}
+
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 

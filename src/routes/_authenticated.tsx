@@ -44,7 +44,7 @@ function AuthLayout() {
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-border bg-surface md:flex md:flex-col">
         <div className="flex h-16 items-center gap-2 border-b border-border px-6">
           <div className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground font-bold">P</div>
-          <span className="font-semibold">PropostaPro</span>
+          <span className="font-semibold">Proposta FIRE</span>
         </div>
         <nav className="flex-1 space-y-1 p-3">
           {navItems.map((it) => (
@@ -83,7 +83,7 @@ function AuthLayout() {
         <header className={"sticky top-0 z-10 flex h-16 items-center justify-between border-b border-border px-4 md:px-6 " + (isAdminArea ? "bg-accent/15" : "bg-surface")}>
           <div className="md:hidden flex items-center gap-2">
             <div className="grid h-7 w-7 place-items-center rounded-md bg-primary text-primary-foreground text-xs font-bold">P</div>
-            <span className="text-sm font-semibold">PropostaPro</span>
+            <span className="text-sm font-semibold">Proposta FIRE</span>
           </div>
           <div className="ml-auto flex items-center gap-3">
             {profile?.role === "admin" && (

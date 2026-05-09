@@ -22,13 +22,30 @@ async function loadImageDataUrl(url: string): Promise<{ data: string; w: number;
       r.onerror = reject;
       r.readAsDataURL(blob);
     });
-    const dims: { w: number; h: number } = await new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
-      img.onerror = () => resolve({ w: 0, h: 0 });
-      img.src = dataUrl;
+    const img = await new Promise<HTMLImageElement | null>((resolve) => {
+      const i = new Image();
+      i.crossOrigin = "anonymous";
+      i.onload = () => resolve(i);
+      i.onerror = () => resolve(null);
+      i.src = dataUrl;
     });
-    return { data: dataUrl, w: dims.w, h: dims.h };
+    if (!img || !img.naturalWidth) return null;
+
+    // Re-encoda em PNG limpo via canvas para garantir compatibilidade com jsPDF
+    const canvas = document.createElement("canvas");
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    ctx.fillStyle = "#FFFFFF"; // fundo branco para PNGs com transparência
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+
+    return {
+      data: canvas.toDataURL("image/png"),
+      w: img.naturalWidth,
+      h: img.naturalHeight,
+    };
   } catch {
     return null;
   }
@@ -44,40 +61,43 @@ export async function downloadPropostaPDF(data: any) {
   const margin = 40;
   let y = 50;
 
-  // Logo
+  // Logo (max 50x50pt para nao invadir o texto)
+  let logoW = 0;
   if (empresa?.logo_url) {
     const img = await loadImageDataUrl(empresa.logo_url);
     if (img && img.w > 0) {
       const maxH = 50;
+      const maxW = 50;
       const ratio = img.w / img.h;
-      const h = maxH;
-      const w = h * ratio;
-      // Detectar formato real da imagem a partir do data URL
-      const formatMatch = img.data.match(/^data:image\/(\w+);base64,/);
-      let imgFormat = (formatMatch?.[1] || "png").toUpperCase();
-      if (imgFormat === "JPG") imgFormat = "JPEG";
-      if (imgFormat === "SVG+XML") imgFormat = "PNG"; // SVG não suportado, ignora
+      let h = maxH;
+      let w = h * ratio;
+      if (w > maxW) {
+        w = maxW;
+        h = w / ratio;
+      }
+      logoW = w;
       try {
-        doc.addImage(img.data, imgFormat, margin, y - 10, w, h);
+        doc.addImage(img.data, "PNG", margin, y - 10, w, h);
       } catch {
-        /* formato não suportado, pula a logo silenciosamente */
+        /* falhou silenciosamente */
       }
     }
   }
+  const textOffsetX = logoW > 0 ? margin + logoW + 12 : margin;
 
   // Header text
   doc.setFont("helvetica", "bold");
   doc.setFontSize(14);
   doc.setTextColor(cR, cG, cB);
-  doc.text(empresa?.nome_empresa || "Empresa", margin + 60, y + 5);
+  doc.text(empresa?.nome_empresa || "Empresa", textOffsetX, y + 5);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor(100);
   let infoY = y + 20;
-  if (empresa?.cnpj_ou_mei) { doc.text(String(empresa.cnpj_ou_mei), margin + 60, infoY); infoY += 11; }
+  if (empresa?.cnpj_ou_mei) { doc.text(String(empresa.cnpj_ou_mei), textOffsetX, infoY); infoY += 11; }
   if (empresa?.telefone || empresa?.email_contato) {
-    doc.text(`${empresa?.telefone || ""}${empresa?.telefone && empresa?.email_contato ? " · " : ""}${empresa?.email_contato || ""}`, margin + 60, infoY);
+    doc.text(`${empresa?.telefone || ""}${empresa?.telefone && empresa?.email_contato ? " · " : ""}${empresa?.email_contato || ""}`, textOffsetX, infoY);
   }
 
   // Right header — proposta number
@@ -142,8 +162,8 @@ export async function downloadPropostaPDF(data: any) {
     bodyStyles: { fontSize: 9, textColor: [15, 23, 42] },
     columnStyles: {
       0: { cellWidth: "auto" },
-      1: { halign: "right", cellWidth: 50 },
-      2: { halign: "right", cellWidth: 50 },
+      1: { halign: "center", cellWidth: 75 },
+      2: { halign: "right", cellWidth: 40 },
       3: { halign: "right", cellWidth: 90 },
     },
     margin: { left: margin, right: margin },

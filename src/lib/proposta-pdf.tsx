@@ -61,13 +61,14 @@ export async function downloadPropostaPDF(data: any) {
   const margin = 40;
   let y = 50;
 
-  // Logo (max 50x50pt para nao invadir o texto)
+  // Logo (max 90x90pt)
   let logoW = 0;
+  let logoH = 0;
   if (empresa?.logo_url) {
     const img = await loadImageDataUrl(empresa.logo_url);
     if (img && img.w > 0) {
-      const maxH = 50;
-      const maxW = 50;
+      const maxH = 90;
+      const maxW = 90;
       const ratio = img.w / img.h;
       let h = maxH;
       let w = h * ratio;
@@ -76,6 +77,7 @@ export async function downloadPropostaPDF(data: any) {
         h = w / ratio;
       }
       logoW = w;
+      logoH = h;
       try {
         doc.addImage(img.data, "PNG", margin, y - 10, w, h);
       } catch {
@@ -83,7 +85,7 @@ export async function downloadPropostaPDF(data: any) {
       }
     }
   }
-  const textOffsetX = logoW > 0 ? margin + logoW + 12 : margin;
+  const textOffsetX = logoW > 0 ? margin + logoW + 14 : margin;
 
   // Header text
   doc.setFont("helvetica", "bold");
@@ -115,7 +117,8 @@ export async function downloadPropostaPDF(data: any) {
   doc.text(`Emissão: ${new Date(proposta.data_emissao).toLocaleDateString("pt-BR")}`, pageW - margin, y + 32, { align: "right" });
   doc.text(`Validade: ${proposta.validade_dias} dias`, pageW - margin, y + 44, { align: "right" });
 
-  y += 70;
+  // Avanca pelo maior entre o bloco de texto do header e a altura da logo
+  y += Math.max(70, logoH + 4);
   doc.setDrawColor(cR, cG, cB);
   doc.setLineWidth(1.5);
   doc.line(margin, y, pageW - margin, y);
@@ -151,10 +154,9 @@ export async function downloadPropostaPDF(data: any) {
   // Tabela de itens
   autoTable(doc, {
     startY: y,
-    head: [["Item", "Unid", "Qtd", "Valor"]],
+    head: [["Item", "Qtd", "Valor"]],
     body: itens.map((i: any) => [
       `${i.nome}${i.descricao ? `\n${i.descricao}` : ""}`,
-      i.unidade,
       String(i.quantidade),
       fmtBRL(Number(i.valor_total_item || i.quantidade * i.valor_unitario)),
     ]),
@@ -162,9 +164,8 @@ export async function downloadPropostaPDF(data: any) {
     bodyStyles: { fontSize: 9, textColor: [15, 23, 42] },
     columnStyles: {
       0: { cellWidth: "auto" },
-      1: { halign: "center", cellWidth: 75 },
-      2: { halign: "right", cellWidth: 40 },
-      3: { halign: "right", cellWidth: 90 },
+      1: { halign: "right", cellWidth: 50 },
+      2: { halign: "right", cellWidth: 100 },
     },
     margin: { left: margin, right: margin },
     theme: "grid",
@@ -212,8 +213,8 @@ export async function downloadPropostaPDF(data: any) {
     y += lines.length * 11 + 8;
   }
 
-  // Aceite
-  if (y > 700) { doc.addPage(); y = 50; }
+  // Aceite (espaco generoso para assinatura digital tipo gov.br)
+  if (y > 600) { doc.addPage(); y = 50; }
   y += 10;
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
@@ -224,8 +225,9 @@ export async function downloadPropostaPDF(data: any) {
   doc.setFontSize(9);
   doc.setTextColor(60);
   doc.text("Para aceitar online, acesse o link enviado pelo prestador.", margin, y);
-  y += 40;
-  doc.line(margin, y, margin + 240, y);
+  doc.text("Caso prefira, assine digitalmente no espaco abaixo (compativel com gov.br).", margin, y + 11);
+  y += 130; // espaco vertical amplo para acomodar carimbo de assinatura digital
+  doc.line(margin, y, margin + 320, y);
   doc.text("Assinatura do contratante", margin, y + 12);
 
   // Footer

@@ -52,10 +52,15 @@ export async function downloadPropostaPDF(data: any) {
       const ratio = img.w / img.h;
       const h = maxH;
       const w = h * ratio;
+      // Detectar formato real da imagem a partir do data URL
+      const formatMatch = img.data.match(/^data:image\/(\w+);base64,/);
+      let imgFormat = (formatMatch?.[1] || "png").toUpperCase();
+      if (imgFormat === "JPG") imgFormat = "JPEG";
+      if (imgFormat === "SVG+XML") imgFormat = "PNG"; // SVG não suportado, ignora
       try {
-        doc.addImage(img.data, "PNG", margin, y - 10, w, h);
+        doc.addImage(img.data, imgFormat, margin, y - 10, w, h);
       } catch {
-        /* ignore */
+        /* formato não suportado, pula a logo silenciosamente */
       }
     }
   }

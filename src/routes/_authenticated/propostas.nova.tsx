@@ -30,7 +30,7 @@ function NovaProposta() {
     supabase.from("clientes").select("id,nome_empresa").eq("user_id", user.id).order("nome_empresa").then(({ data }) => setClientes(data ?? []));
     supabase.from("servicos_catalogo").select("*").eq("ativo", true).order("nome").then(({ data }) => setCatalogo(data ?? []));
     supabase.from("configuracoes_admin").select("*").eq("id", 1).maybeSingle().then(({ data }) => {
-      if (data) setCond((c) => ({ ...c, condicoes_pagamento: data.condicoes_pagamento, clausula_lgpd: data.clausula_lgpd, clausula_garantia: data.clausula_garantia, clausula_suporte: data.clausula_suporte }));
+      if (data) setCond((c) => ({ ...c, condicoes_pagamento: data.condicoes_pagamento ?? "", clausula_lgpd: data.clausula_lgpd ?? "", clausula_garantia: data.clausula_garantia ?? "", clausula_suporte: data.clausula_suporte ?? "" }));
     });
   }, [user]);
 
@@ -60,8 +60,9 @@ function NovaProposta() {
     if (!cond.titulo) { toast.error("Informe o título"); setStep(3); return; }
     setSaving(true);
     const { data: numData } = await supabase.rpc("proximo_numero_proposta");
+    const numero = (numData as number | null) ?? 1;
     const { data: prop, error } = await supabase.from("propostas").insert({
-      user_id: user.id, cliente_id: clienteId, numero: numData,
+      user_id: user.id, cliente_id: clienteId, numero,
       titulo: cond.titulo, prazo_execucao: cond.prazo_execucao, validade_dias: cond.validade_dias,
       condicoes_pagamento: cond.condicoes_pagamento, clausula_lgpd: cond.clausula_lgpd,
       clausula_garantia: cond.clausula_garantia, clausula_suporte: cond.clausula_suporte,

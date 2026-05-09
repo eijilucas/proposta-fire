@@ -16,6 +16,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedPropostasIndexRouteImport } from './routes/_authenticated/propostas.index'
+import { Route as AuthenticatedPropostasNovaRouteImport } from './routes/_authenticated/propostas.nova'
+import { Route as AuthenticatedPropostasIdRouteImport } from './routes/_authenticated/propostas.$id'
+import { Route as AuthenticatedPropostasIdEditarRouteImport } from './routes/_authenticated/propostas.$id.editar'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -52,6 +55,24 @@ const AuthenticatedPropostasIndexRoute =
     path: '/propostas/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedPropostasNovaRoute =
+  AuthenticatedPropostasNovaRouteImport.update({
+    id: '/propostas/nova',
+    path: '/propostas/nova',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPropostasIdRoute =
+  AuthenticatedPropostasIdRouteImport.update({
+    id: '/propostas/$id',
+    path: '/propostas/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPropostasIdEditarRoute =
+  AuthenticatedPropostasIdEditarRouteImport.update({
+    id: '/editar',
+    path: '/editar',
+    getParentRoute: () => AuthenticatedPropostasIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,7 +80,10 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
+  '/propostas/nova': typeof AuthenticatedPropostasNovaRoute
   '/propostas/': typeof AuthenticatedPropostasIndexRoute
+  '/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -67,7 +91,10 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
+  '/propostas/nova': typeof AuthenticatedPropostasNovaRoute
   '/propostas': typeof AuthenticatedPropostasIndexRoute
+  '/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,7 +104,10 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/propostas/$id': typeof AuthenticatedPropostasIdRouteWithChildren
+  '/_authenticated/propostas/nova': typeof AuthenticatedPropostasNovaRoute
   '/_authenticated/propostas/': typeof AuthenticatedPropostasIndexRoute
+  '/_authenticated/propostas/$id/editar': typeof AuthenticatedPropostasIdEditarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,9 +117,21 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard'
     | '/onboarding'
+    | '/propostas/$id'
+    | '/propostas/nova'
     | '/propostas/'
+    | '/propostas/$id/editar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cadastro' | '/login' | '/dashboard' | '/onboarding' | '/propostas'
+  to:
+    | '/'
+    | '/cadastro'
+    | '/login'
+    | '/dashboard'
+    | '/onboarding'
+    | '/propostas/$id'
+    | '/propostas/nova'
+    | '/propostas'
+    | '/propostas/$id/editar'
   id:
     | '__root__'
     | '/'
@@ -98,7 +140,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/_authenticated/dashboard'
     | '/_authenticated/onboarding'
+    | '/_authenticated/propostas/$id'
+    | '/_authenticated/propostas/nova'
     | '/_authenticated/propostas/'
+    | '/_authenticated/propostas/$id/editar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -159,18 +204,57 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPropostasIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/propostas/nova': {
+      id: '/_authenticated/propostas/nova'
+      path: '/propostas/nova'
+      fullPath: '/propostas/nova'
+      preLoaderRoute: typeof AuthenticatedPropostasNovaRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/propostas/$id': {
+      id: '/_authenticated/propostas/$id'
+      path: '/propostas/$id'
+      fullPath: '/propostas/$id'
+      preLoaderRoute: typeof AuthenticatedPropostasIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/propostas/$id/editar': {
+      id: '/_authenticated/propostas/$id/editar'
+      path: '/editar'
+      fullPath: '/propostas/$id/editar'
+      preLoaderRoute: typeof AuthenticatedPropostasIdEditarRouteImport
+      parentRoute: typeof AuthenticatedPropostasIdRoute
+    }
   }
 }
+
+interface AuthenticatedPropostasIdRouteChildren {
+  AuthenticatedPropostasIdEditarRoute: typeof AuthenticatedPropostasIdEditarRoute
+}
+
+const AuthenticatedPropostasIdRouteChildren: AuthenticatedPropostasIdRouteChildren =
+  {
+    AuthenticatedPropostasIdEditarRoute: AuthenticatedPropostasIdEditarRoute,
+  }
+
+const AuthenticatedPropostasIdRouteWithChildren =
+  AuthenticatedPropostasIdRoute._addFileChildren(
+    AuthenticatedPropostasIdRouteChildren,
+  )
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedPropostasIdRoute: typeof AuthenticatedPropostasIdRouteWithChildren
+  AuthenticatedPropostasNovaRoute: typeof AuthenticatedPropostasNovaRoute
   AuthenticatedPropostasIndexRoute: typeof AuthenticatedPropostasIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedPropostasIdRoute: AuthenticatedPropostasIdRouteWithChildren,
+  AuthenticatedPropostasNovaRoute: AuthenticatedPropostasNovaRoute,
   AuthenticatedPropostasIndexRoute: AuthenticatedPropostasIndexRoute,
 }
 

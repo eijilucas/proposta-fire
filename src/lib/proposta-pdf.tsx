@@ -1,8 +1,3 @@
-import { Buffer } from "buffer";
-if (typeof globalThis !== "undefined" && !(globalThis as any).Buffer) {
-  (globalThis as any).Buffer = Buffer;
-}
-
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -44,7 +39,7 @@ export async function downloadPropostaPDF(data: any) {
   const cor = empresa?.cor_marca || "#0F4C75";
   const [cR, cG, cB] = hexToRgb(cor);
 
-  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const doc = new jsPDF({ unit: "pt", format: "a4", compress: false });
   const pageW = doc.internal.pageSize.getWidth();
   const margin = 40;
   let y = 50;

@@ -11,7 +11,7 @@ function Landing() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2">
             <div className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground font-bold">P</div>
-            <span className="font-semibold">PropostaPro</span>
+            <span className="font-semibold">Proposta FIRE</span>
           </div>
           <div className="flex items-center gap-3">
             <Link to="/login" className="text-sm font-medium hover:text-primary">Entrar</Link>
@@ -65,7 +65,7 @@ function Landing() {
       </section>
 
       <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} PropostaPro
+        © {new Date().getFullYear()} Proposta FIRE
       </footer>
     </div>
   );

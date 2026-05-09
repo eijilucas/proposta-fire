@@ -26,7 +26,7 @@ function LoginPage() {
       <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-sm">
         <Link to="/" className="text-sm text-muted-foreground hover:text-primary">← Voltar</Link>
         <h1 className="mt-3 text-2xl font-bold">Entrar</h1>
-        <p className="text-sm text-muted-foreground">Acesse sua conta PropostaPro.</p>
+        <p className="text-sm text-muted-foreground">Acesse sua conta Proposta FIRE.</p>
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
             <label className="mb-1 block text-sm font-medium">Email</label>

@@ -42,7 +42,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PropostaPro — Propostas comerciais para técnicos de TI" },
+      { title: "Proposta FIRE — Propostas comerciais para técnicos de TI" },
       { name: "description", content: "Gere proposta profissional em PDF em 2 minutos e feche mais contratos de firewall." },
     ],
     links: [

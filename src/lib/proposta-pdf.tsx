@@ -1,3 +1,7 @@
+import { Buffer } from "buffer";
+if (typeof window !== "undefined" && !(window as any).Buffer) {
+  (window as any).Buffer = Buffer;
+}
 import { Document, Page, Text, View, StyleSheet, pdf, Image } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
